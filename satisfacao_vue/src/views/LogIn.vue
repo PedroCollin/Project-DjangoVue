@@ -50,26 +50,40 @@ export default {
     },
     methods: {
         submitForm(e) {
-            axios.defaults.headers.cummon['Authorization'] = ""
+            axios.defaults.headers.common["Authorization"] = ""
 
-            localStorage.removeItem('token');
+            localStorage.removeItem("token")
 
             const formData = {
                 username: this.username,
                 password: this.password
             }
 
-            axios.post('/api/v1/token/login/', formData)
+            axios
+                .post("/api/v1/token/login/", formData)
                 .then(response => {
                     const token = response.data.auth_token
 
                     this.$store.commit('setToken', token)
+                    
+                    axios.defaults.headers.common["Authorization"] = "Token " + token
 
-                    axios.defaults.headers.cummon["Authorization"] = "token " + token
-
-                    localStorage.setItem('token', token)
+                    localStorage.setItem("token", token)
 
                     this.$router.push('/dashboard')
+                })
+                .catch(error => {
+                    if (error.response) {
+                        for (const property in error.response.data) {
+                            this.errors.push(`${property}: ${error.response.data[property]}`)
+                        }
+
+                        console.log(JSON.stringify(error.response.data))
+                    } else if (error.message) {
+                        console.log(JSON.stringify(error.message))
+                    } else {
+                        console.log(JSON.stringify(error))
+                    }
                 })
         }
     }
