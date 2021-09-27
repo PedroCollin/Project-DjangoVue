@@ -14,3 +14,6 @@ class Client(models.Model):
     contact_reference = models.CharField(max_length=255, blank=True, null=True)
     created_by = models.ForeignKey(User, related_name='clients', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '%s' % self.name
