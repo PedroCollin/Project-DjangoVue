@@ -8,23 +8,21 @@
                     <div class="field">
                         <label>Username</label>
                         <div class="control">
-                            <input class="input" type="email" name="username" v-model="username">
+                            <input type="email" name="username" class="input" v-model="username">
                         </div>
                     </div>
+
                     <div class="field">
                         <label>Password</label>
                         <div class="control">
-                            <input class="input" type="password" name="password" v-model="password">
+                            <input type="password" name="password" class="input" v-model="password">
                         </div>
                     </div>
-                    <div class = "notification is-danger" v-if="errors.length">
-                        <p
-                            v-for="error in errors"
-                            v-bind:key="error"
-                        >
-                            {{ error }}
-                        </p>
+
+                    <div class="notification is-danger" v-if="errors.length">
+                        <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
                     </div>
+
                     <div class="field">
                         <div class="control">
                             <button class="button is-success">Log in</button>
@@ -37,7 +35,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
     name: 'LogIn',
